@@ -1,13 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
-        >
-    <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Hello World, MyActivity"
-            />
-</LinearLayout>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:piano="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+    <RelativeLayout
+            android:id="@+id/control_panel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:padding="10dp">
+
+        <Switch
+                android:id="@+id/engine_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+
+    <com.evilduck.piano.views.instrument.PianoView
+            android:id="@+id/instrument_view"
+            android:layout_width="match_parent"
+            android:layout_height="300dip"
+            android:layout_below="@+id/control_panel"
+            piano:overlay_bitmaps="true"
+            piano:overlay_circle_radius="18dip"
+            piano:overlay_circle_text_size="18sp"
+            piano:overlay_color="#00FF00"/>
+
+</RelativeLayout>

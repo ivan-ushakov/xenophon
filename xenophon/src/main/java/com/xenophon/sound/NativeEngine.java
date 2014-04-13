@@ -16,6 +16,10 @@ public class NativeEngine {
 
     public native void stop();
 
+    public native void midiNoteOn(int channel, int midiNote, int velocity);
+
+    public native void midiNoteOff(int channel, int midiNote, int velocity);
+
     public native void release();
 
 }

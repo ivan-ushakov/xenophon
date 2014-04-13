@@ -34,9 +34,24 @@ void engine_t::create()
 
 void engine_t::add_plugin(std::unique_ptr<plugin_t> &plugin)
 {
+    LOGI("adding plugin...");
     plugin->set_sample_rate(44100);
     plugin->prepare_for_play();
     _plugins.push_back(std::move(plugin));
+}
+
+bool engine_t::midi_note_on(uint channel, uint midi_note, uint velocity)
+{
+    std::unique_ptr<plugin_t> &p = _plugins[0];
+    p->midi_note_on(channel, midi_note, velocity);
+    return true;
+}
+
+bool engine_t::midi_note_off(uint channel, uint midi_note, uint velocity, bool all_notes_off)
+{
+    std::unique_ptr<plugin_t> &p = _plugins[0];
+    p->midi_note_off(channel, midi_note, velocity, all_notes_off);
+    return true;
 }
 
 std::unique_ptr<player_t> &engine_t::player()
@@ -102,8 +117,6 @@ void engine_t::create_player()
 
 void engine_t::process_plugins(std::vector<char> &buffer)
 {
-    LOGI("process plugins...");
-
     std::vector<float> input_buffer(2);
     std::vector<float> output_buffer(2);
 
@@ -121,7 +134,7 @@ void engine_t::process_plugins(std::vector<char> &buffer)
         size_t channel_offset = output_buffer.size(); 
         for (size_t j = 0; j < output_buffer.size(); j++)
         {
-            int sample = floor(32768 * output_buffer[j]);        
+            int sample = std::floor(32768 * output_buffer[j]);        
             buffer[frame_offset + channel_offset * j] = sample & 0xFF;
             buffer[frame_offset + channel_offset * j + 1] = (sample >> 8) & 0xFF;
         }
