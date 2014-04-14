@@ -6,8 +6,9 @@ mono_synth_t::mono_synth_t() : _midi_note(0)
 {
 	_oscillator.reset(new wt_oscillator_t());
 
-	for (uint i = 0; i < 46; i++)
-		_note_table.push_back(std::pow(2, (i + 1 - 46) / 12.0f) * 440);
+	_note_table.resize(46);
+	for (size_t i = 0; i < _note_table.size(); i++)
+		_note_table[i] = std::pow(2, ((float) i + 1 - _note_table.size()) / 12.0f) * 440;
 }
 
 bool mono_synth_t::prepare_for_play()

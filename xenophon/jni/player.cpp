@@ -8,7 +8,6 @@
 
 void player_callback(SLAndroidSimpleBufferQueueItf queue, void *context)
 {
-    LOGI("player callback");
     player_t *player = (player_t *)context;
     if (player == NULL)
     {

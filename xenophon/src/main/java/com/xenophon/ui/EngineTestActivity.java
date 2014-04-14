@@ -30,13 +30,11 @@ public class EngineTestActivity extends Activity {
         pianoView.setOnKeyTouchListener(new PianoView.OnKeyTouchListener() {
             @Override
             public void onTouchUp(int midiCode) {
-                Log.d(TAG, "note up midi code: " + midiCode);
                 engine.midiNoteOff(0, midiCode, 0);
             }
 
             @Override
             public void onTouchDown(int midiCode) {
-                Log.d(TAG, "note down midi code: " + midiCode);
                 engine.midiNoteOn(0, midiCode, 0);
             }
         });
